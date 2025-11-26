@@ -26,16 +26,14 @@ sys=tf([d e], [a_1 b_1 c_1 d_1]);
 figure;
 rlocus(sys);
 title('Mapa de Polos e Zeros - Função de Transferência');
-% print('RootLocus_transfer_fcn', '-dpdf'); % Salva a figura em PDF
-exportgraphics(gcf, 'RootLocus_transfer_fcn.pdf', 'ContentType', 'vector');
+print('RootLocus_transfer_fcn', '-dpdf'); % Salva a figura em PDF
 
 
 %% Plot do diagrama de bode
 figure;
 bode(sys);
 title('Diagrama de Bode - Função de Transferência');
-% print('Bode_transfer_fcn', '-dpdf'); % Salva a figura em PDF
-exportgraphics(gcf, 'Bode_transfer_fcn.pdf', 'ContentType', 'vector');
+print('Bode_transfer_fcn', '-dpdf'); % Salva a figura em PDF
 
 %% Parâmetros do PID
 
@@ -69,16 +67,21 @@ sys_cl = feedback(ft_r, 1); % Assume realimentação unitária negativa
 figure;
 rlocus(sys_cl);
 title('Mapa de Polos e Zeros - Malha Fechada (Estabilidade Final)');
-% print('RootLocus_sistema_controlado', '-dpdf');
-exportgraphics(gcf, 'RootLocus_sistema_controlado.pdf', 'ContentType', 'vector');
+print('RootLocus_sistema_controlado', '-dpdf');
+%% resposta ao degrau:
+figure;
+step(sys_cl);
+title('Resposta ao Degrau do Sistema Controlado');
+
+%%
+bode(ft_r);
 
 
 %%
 figure;
 bode(sys_cl);
 title('Diagrama de Bode - Sistema Controlado');
-% print('bode_sistema_controlado', '-dpdf');
-exportgraphics(gcf, 'bode_sistema_controlado.pdf', 'ContentType', 'vector');
+print('bode_sistema_controlado', '-dpdf');
 
 %% Simulação com simulink
 
@@ -89,7 +92,7 @@ dados = out.ScopeData;
 
 % Criar uma figura nova
 figure('Color', 'w'); % Fundo branco
-plot(dados.time, dados.signals.values, 'LineWidth', 1.5); % Linha mais grossa
+plot(dados.Time, dados.signals.values, 'LineWidth', 1.5); % Linha mais grossa
 
 % Melhorar a estética
 grid on;
@@ -100,4 +103,4 @@ set(gca, 'FontSize', 12); % Tamanho da fonte legível
 
 % EXPORTAR PARA PDF (VETORIAL)
 % O comando exportgraphics (disponível no R2020a+) é o melhor atualmente:
-exportgraphics(gcf, 'resposta_degrau_pid_tune_fast.pdf', 'ContentType', 'vector');
+exportgraphics(gcf, 'resposta_degrau_pid_2.pdf', 'ContentType', 'vector');
