@@ -57,7 +57,6 @@ Gc = Kp * (1 + (1/(Ti*s)) + (Td*s));
 ft_r = Gc*sys;
 
 %% Análise em Malha Aberta
-% O pzmap mostra os polos e zeros no plano complexo S
 figure;
 rlocus(ft_r); 
 title('Mapa de Polos e Zeros - Malha Aberta');
@@ -88,16 +87,15 @@ simulink
 dados = out.ScopeData; 
 
 % Criar uma figura nova
-figure('Color', 'w'); % Fundo branco
-plot(dados.time, dados.signals.values, 'LineWidth', 1.5); % Linha mais grossa
+figure('Color', 'w');
+plot(dados.time, dados.signals.values, 'LineWidth', 1.5);
 
-% Melhorar a estética
+
 grid on;
 xlabel('Tempo (s)');
 ylabel('Amplitude');
 title('Resposta ao Degrau do Sistema com PID');
-set(gca, 'FontSize', 12); % Tamanho da fonte legível
+set(gca, 'FontSize', 12);
 
 % EXPORTAR PARA PDF (VETORIAL)
-% O comando exportgraphics (disponível no R2020a+) é o melhor atualmente:
 exportgraphics(gcf, 'resposta_degrau_pid_tune_fast.pdf', 'ContentType', 'vector');
